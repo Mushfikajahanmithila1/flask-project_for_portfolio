@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+    <h2>Manage Your Service</h2>
+
+    <ul>
+        <li><h5>Total Services:</h5>{{services.length()}}</li>
+    </ul>
+    <form method="POST" action="{{ url_for('service.add_service') }}">
+        <label for="service_name">Service Name:</label>
+        <input type="text" id="service_name" name="service_name" required>
+
+        <label for="service_description">Service Description:</label>
+        <input type="text" id="service_description" name="service_description" required>
+
+        <label for="service_price">Service Price:</label>
+        <input type="number" id="service_price" name="service_price" step="0.01" required>
+        <button type="submit" class="btn">Add Service</button>
+    </form>
+    {% if services %}
+    {% for service in services %}
+        {% for service in services %}
+<tr>
+    <td>{{ service.name }}</td>
+    <td>{{ service.description }}</td>
+    <td>${{ service.price }}</td>
+
+    <td>
+        <form method="POST"
+        action="{{ url_for('service.delete_service', service_id=service.id) }}"
+        onsubmit="return confirm('Are you sure you want to delete this service?');">
+
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+
+        </form>
+    </td>
+</tr>
+{% endfor %}
+    {% endfor %}
+
+    <table class="service-table">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in services %}
+            <tr>
+                <td>{{ service.name }}</td>
+                <td>{{ service.description }}</td>
+                <td>${{ service.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h4>No services available. Add one above!</h4>
+    {% endif %}
+{% endblock %}
