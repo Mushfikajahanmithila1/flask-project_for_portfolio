@@ -6,30 +6,42 @@ auth = Blueprint("auth", __name__)
 # main
 @auth.route("/", methods=["GET"])
 def main():
-    return render_template("base.html")
+    return render_template("index.html")
 
 # register
-@auth.route("/register", methods=["POST", "GET"])
+@auth.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method=="POST":
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
+        session["username"] = username
+        session["password"] = password
+
+        flash("Registration successful!", "success")
+
+        return redirect(url_for("auth.main"))
+
+    return render_template("register.html")
+# login
+@auth.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+
         username = request.form.get("username")
         password = request.form.get("password")
 
-        session['username'] = username
-        session['password'] = password
-    return render_template("register.html") 
+        if (
+            username == session.get("username")
+            and password == session.get("password")
+        ):
+            flash("Login successful!", "success")
+            return redirect(url_for("auth.main"))
 
-# login
-@auth.route("/login", methods=["POST", "GET"])
-def login():
-    if request.method=="POST":
-        username = request.form.get('username')
-        password = request.form.get('password')
-        if username==session[username] and password==session[password]:
-            return render_template('service.html')
-        else:
-            flash("Invalid username or password", "error")
-            return redirect(url_for('auth.login'))
+        flash("Invalid username or password", "error")
+        return redirect(url_for("auth.login"))
+
+    return render_template("login.html")
 
 # logout
 @auth.route("/logout")

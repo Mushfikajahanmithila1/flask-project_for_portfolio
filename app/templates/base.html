@@ -4,25 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}HOME{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <header>
         <h2>Welcome to smart booking service.</h2>
         <nav>
             <a href="/">Dashboard</a>
-            <a href="/services">Services</a>
-            <a href="/logout">Logout </a>
+            <a href="{{ url_for('service.view_services') }}">Services</a>
+            <a href="{{ url_for('auth.register') }}">Sign Up</a>
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            <a href="{{ url_for('auth.logout') }}">Logout </a>
         </nav>
-    </header>
+</header>
 
-    <main>
-        
-        {% block content %}
-        {% endblock %}
-    </main>
+<main>
 
-    <footer>
-        <p>&copy; 2026 Smart Booking Service. All rights reserved. Designed by Mushfikur Rahman</p>
-    </footer>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Smart Booking Service. All rights reserved. Designed by Mushfika Jahan</p>
+</footer>
+
 </body>
 </html>
