@@ -20,7 +20,7 @@
         <button type="submit" class="btn">Add Service</button>
     </form>
     {% if services %}
-    <table>
+    <table action="{{url_for('service.view_services')}}">
         <thead>
             <tr>
                 <th>Service Name</th>
@@ -45,11 +45,14 @@
             </button>
 
         </form>
-        <form method="GET" action="{{ url_for('service.toggle_status', service_id=service.id) }}">
-            <button type="submit" class="btn btn-primary">
-                Update
-            </button>
-        </form>
+        <form method="POST"
+        action="{{ url_for('service.toggle_status', service_id=service.id) }}">
+
+    <button type="submit" class="btn btn-primary">
+        Update
+    </button>
+
+</form>
                 </td>
             </tr>
             {% endfor %}

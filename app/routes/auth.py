@@ -4,12 +4,12 @@ auth = Blueprint("auth", __name__)
 
 
 # main
-@auth.route("/", methods=["GET"])
+@auth.route("/home", methods=["GET"])
 def main():
     return render_template("index.html")
 
 # register
-@auth.route("/register", methods=["GET", "POST"])
+@auth.route("/", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         username = request.form.get("username")
