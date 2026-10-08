@@ -12,9 +12,9 @@ def create_app():
     db.init_app(app)
     
     from app.routes.auth import auth
-    from app.routes.service import service_bp
+    from app.routes.service import services_bp
     
     app.register_blueprint(auth)
-    app.register_blueprint(service_bp)
+    app.register_blueprint(services_bp)
     
     return app

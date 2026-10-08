@@ -5,7 +5,7 @@ auth = Blueprint("auth", __name__)
 
 # main
 @auth.route("/home", methods=["GET"])
-def main():
+def home():
     return render_template("index.html")
 
 # register
@@ -20,7 +20,7 @@ def register():
 
         flash("Registration successful!", "success")
 
-        return redirect(url_for("auth.main"))
+        return redirect(url_for("auth.home"))
 
     return render_template("register.html")
 # login
@@ -36,7 +36,7 @@ def login():
             and password == session.get("password")
         ):
             flash("Login successful!", "success")
-            return redirect(url_for("auth.main"))
+            return render_template("service.html")
 
         flash("Invalid username or password", "error")
         return redirect(url_for("auth.login"))
