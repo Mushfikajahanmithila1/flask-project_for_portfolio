@@ -5,16 +5,15 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = "smart_secret-key"
+    app.config["SECRET_KEY"] = "replace-with-a-random-secret-key"
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    
     db.init_app(app)
-    
+
     from app.routes.auth import auth
     from app.routes.service import services_bp
-    
     app.register_blueprint(auth)
     app.register_blueprint(services_bp)
-    
+
+    from app import model
     return app

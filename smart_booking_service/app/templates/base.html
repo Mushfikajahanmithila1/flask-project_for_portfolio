@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Smart Booking Service{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="{{ url_for('auth.home') }}">Smart<span>Booking</span></a>
+  <nav class="nav-links">
+    <a href="{{ url_for('auth.home') }}">Home</a>
+    {% if session.get('username') %}
+      <a href="{{ url_for('auth.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('services.view_services') }}">Services</a>
+      <form class="nav-logout" action="{{ url_for('auth.logout') }}" method="POST"><button class="nav-logout-button" type="submit">Logout</button></form>
+    {% else %}
+      <a href="{{ url_for('auth.register') }}">Register</a><a href="{{ url_for('auth.login') }}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+<main class="page-content">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}<div class="flash-list">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="site-footer"><p>© 2026 Smart Booking Service · Built with Flask</p></footer>
+</body>
+</html>

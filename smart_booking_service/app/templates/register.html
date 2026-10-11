@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Register | Smart Booking{% endblock %}
+{% block content %}<section class="auth-wrap"><div class="auth-card"><p class="eyebrow">CREATE YOUR ACCOUNT</p><h1>Get started.</h1><p class="auth-subtitle">Create a demo account to access your workspace.</p>
+<form method="POST" action="{{ url_for('auth.register') }}" class="auth-form"><label for="username">Username</label><input id="username" name="username" type="text" placeholder="Choose a username" autocomplete="username" required><label for="password">Password</label><input id="password" name="password" type="password" placeholder="Create a password" autocomplete="new-password" required><button type="submit" class="btn btn-full">Create Account</button></form>
+<p class="auth-switch">Already registered? <a href="{{ url_for('auth.login') }}">Log in</a></p><p class="demo-note">Demo version: accounts are kept in this browser session only.</p></div></section>{% endblock %}

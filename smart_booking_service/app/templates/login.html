@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Login | Smart Booking{% endblock %}
+{% block content %}<section class="auth-wrap"><div class="auth-card"><p class="eyebrow">WELCOME BACK</p><h1>Log in.</h1><p class="auth-subtitle">Continue to your Smart Booking workspace.</p>
+<form method="POST" action="{{ url_for('auth.login') }}" class="auth-form"><label for="username">Username</label><input id="username" name="username" type="text" placeholder="Your username" autocomplete="username" required><label for="password">Password</label><input id="password" name="password" type="password" placeholder="Your password" autocomplete="current-password" required><button type="submit" class="btn btn-full">Log In</button></form>
+<p class="auth-switch">New here? <a href="{{ url_for('auth.register') }}">Create an account</a></p></div></section>{% endblock %}

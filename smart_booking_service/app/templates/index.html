@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Home | Smart Booking{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">SMART • SIMPLE • ORGANIZED</p>
+    <h1>Appointments,<br><span>made effortless.</span></h1>
+    <p class="hero-text">A clean place to organize your services, keep track of their status, and manage your booking workflow.</p>
+    <div class="hero-actions">
+      {% if session.get('username') %}<a class="btn" href="{{ url_for('auth.dashboard') }}">Open Dashboard</a><a class="btn btn-outline" href="{{ url_for('services.view_services') }}">Manage Services</a>
+      {% else %}<a class="btn" href="{{ url_for('auth.register') }}">Get Started</a><a class="btn btn-outline" href="{{ url_for('auth.login') }}">Log In</a>{% endif %}
+    </div>
+    <div class="hero-stats"><div><strong>Easy</strong><span>to manage</span></div><div><strong>Clear</strong><span>service status</span></div><div><strong>Simple</strong><span>workflow</span></div></div>
+  </div>
+  <div class="hero-art"><div class="art-glow"></div><div class="booking-card">
+    <div class="booking-card-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="card-label">YOUR WORKSPACE</span></div>
+    <div class="calendar-title"><span>Overview</span><span class="calendar-icon">▦</span></div>
+    <div class="calendar-grid">{% for day in ["MON","TUE","WED","THU","FRI","SAT","SUN"] %}<span class="day">{{ day }}</span>{% endfor %}{% for n in range(1,15) %}<span class="date {% if n in [3,7,11] %}date-active{% endif %}">{{ n }}</span>{% endfor %}</div>
+    <div class="mini-task"><span class="task-check">✓</span><div><strong>Service planning</strong><small>Keep everything in order</small></div><span class="task-status">READY</span></div>
+    <div class="mini-task"><span class="task-check purple">↗</span><div><strong>Simple dashboard</strong><small>Your work, one place</small></div></div>
+  </div><div class="floating-chip">✦ Stay organized</div></div>
+</section>
+<section class="feature-section"><div class="section-heading"><p class="eyebrow">BUILT FOR CLARITY</p><h2>Everything in one place.</h2><p>Spend less time juggling details and more time getting things done.</p></div>
+  <div class="feature-grid"><article class="feature-card"><span class="feature-icon">▦</span><h3>Service management</h3><p>Add, review, update, or remove services from one simple screen.</p></article><article class="feature-card"><span class="feature-icon purple-icon">◉</span><h3>Clear status</h3><p>See which services are active and switch status when plans change.</p></article><article class="feature-card"><span class="feature-icon green-icon">✓</span><h3>Focused workspace</h3><p>A responsive dashboard designed to keep important things easy to find.</p></article></div>
+</section>
+{% endblock %}
